@@ -1,6 +1,6 @@
 # Launch EC2 instance
 resource "aws_instance" "jenkins_server" {
-  ami                    = data.aws_ami.ubuntu.id
+  ami                    = "ami-04b4f1a9cf54c11d0"
   instance_type          = var.instance_type
   key_name               = var.key_name
   vpc_security_group_ids = [aws_security_group.jenkins_sg.id]

@@ -10,7 +10,7 @@ This project sets up an AWS EC2 instance running Jenkins using Terraform. The co
 project-folder/
 │── backend.tf           # Terraform backend configuration (S3 bucket for state storage)
 │── data.sh              # Bash script for Jenkins installation
-│── data.tf              # Fetches default VPC and latest Ubuntu AMI
+│── data.tf              # Fetches default VPC
 │── main.tf              # Defines EC2 instance for Jenkins
 │── outputs.tf           # Outputs public IP of the instance
 │── providers.tf         # AWS provider configuration
