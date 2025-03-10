@@ -2,63 +2,70 @@
 
 ## Project Overview
 
-This Terraform project sets up a secure and scalable Jenkins deployment on AWS. It includes a custom VPC with public and private subnets, an EC2 instance for Jenkins, Route 53 DNS records, SSL configuration via CertBot, and an Nginx reverse proxy.
+This Terraform project automates the deployment of a secure and scalable Jenkins server on AWS. The infrastructure includes a custom VPC with public and private subnets, an EC2 instance for Jenkins, Route 53 DNS records, SSL configuration via CertBot, and an Nginx reverse proxy. The setup ensures secure access to Jenkins through HTTPS and restricts access to trusted IPs.
 
 ---
 
 ## Infrastructure Components
 
-### 1. IAM Role
-- Attached permissions:
-  - `ec2:*` (Full EC2 access)
-  - `s3:*` (Full S3 access)
+### 1. **IAM Role**
+- **Permissions**:
+  - Full access to EC2 (`ec2:*`).
+  - Full access to S3 (`s3:*`).
 
-### 2. Custom VPC (`vpc.tf`)
-- Configured with:
-  - **3 public subnets**
-  - **3 private subnets**
-  - (Code reused from Terraform Session)
-- **Jenkins Server** is deployed in a **public subnet**.
+### 2. **Custom VPC (`vpc.tf`)**
+- **Features**:
+  - 3 public subnets.
+  - 3 private subnets.
+  - Jenkins server deployed in a **public subnet**.
+- **Reusability**: VPC configuration is reused from a previous Terraform session.
 
-### 3. Route 53 DNS (`route53.tf`)
-- Creates **A records** for:
+### 3. **Route 53 DNS (`route53.tf`)**
+- **A Records**:
   - `jenkins.your-domain`
   - `www.jenkins.your-domain`
 
-### 4. SSL Configuration (`userdata.sh`)
-- Configured using **CertBot** for HTTPS support.
+### 4. **SSL Configuration (`userdata.sh`)**
+- **CertBot**: Automates SSL certificate generation and renewal for HTTPS.
 
-### 5. Nginx Proxy (`userdata.sh`)
-- Acts as a reverse proxy for Jenkins:
-  - Traffic on **ports 80/443** is forwarded to **localhost:8080** (Jenkins).
+### 5. **Nginx Reverse Proxy (`userdata.sh`)**
+- **Function**:
+  - Routes traffic from **ports 80/443** to **localhost:8080** (Jenkins).
+- **Purpose**: Secures Jenkins behind HTTPS and simplifies access.
 
-### 6. Security Group (`sg.tf`)
-- Ingress rules:
-  - **Port 443 (HTTPS)**: Open to **Akumo IP, Home IP**
-  - **Port 22 (SSH)**: Open to **Akumo IP, Home IP**
-  - **Port 8080 (Jenkins Web UI)**: **Must be removed after Nginx proxy is configured**.
+### 6. **Security Group (`sg.tf`)**
+- **Ingress Rules**:
+  - **Port 443 (HTTPS)**: Open to **Akumo IP** and **Home IP**.
+  - **Port 22 (SSH)**: Open to **Akumo IP** and **Home IP**.
+  - **Port 8080 (Jenkins Web UI)**: **Temporary** (remove after Nginx proxy is configured).
 
 ---
 
 ## File Structure
-SESSION-2-TASK/ 
-│── .terraform/ # Terraform internal files 
-│── .terraform.lock.hcl # Terraform dependency lock file 
-│── backend.tf # Backend configuration (e.g., S3, DynamoDB) 
-│── data.tf # Data sources (e.g., existing AWS resources) 
-│── main.tf # Main Terraform configuration 
-│── outputs.tf # Outputs (e.g., instance IPs, DNS names) 
-│── providers.tf # Provider configurations (AWS, etc.) 
-│── README.md # Project documentation 
-│── route53.tf # Route 53 A record definitions 
-│── sg.tf # Security group configurations 
-│── terraform.tfstate # Terraform state file 
-│── terraform.tfstate.backup # Backup of Terraform state 
-│── terraform.tfvars # Terraform variable values 
-│── userdata.sh # User data script (Jenkins, Nginx, CertBot) 
-│── variables.tf # Variable definitions 
-│── versions.tf # Terraform required versions 
-│── vpc.tf # VPC and subnet configurations
+
+
+---
+
+## File Structure
+
+SESSION-2-TASK/
+│── .terraform/                # Terraform internal files (auto-generated)
+│── .terraform.lock.hcl        # Terraform dependency lock file
+│── backend.tf                 # Backend configuration (e.g., S3, DynamoDB)
+│── data.tf                    # Data sources (e.g., existing AWS resources)
+│── main.tf                    # Main Terraform configuration
+│── outputs.tf                 # Outputs (e.g., instance IPs, DNS names)
+│── providers.tf               # Provider configurations (AWS, etc.)
+│── README.md                  # Project documentation (this file)
+│── route53.tf                 # Route 53 A record definitions
+│── sg.tf                      # Security group configurations
+│── terraform.tfstate          # Terraform state file (auto-generated)
+│── terraform.tfstate.backup   # Backup of Terraform state
+│── terraform.tfvars           # Terraform variable values
+│── userdata.sh                # User data script (Jenkins, Nginx, CertBot)
+│── variables.tf               # Variable definitions
+│── versions.tf                # Terraform required versions
+│── vpc.tf                     # VPC and subnet configurations
 
 
 ---
