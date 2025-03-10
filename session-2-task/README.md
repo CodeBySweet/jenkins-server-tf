@@ -91,6 +91,7 @@ Deploy the infrastructure using:
 Once the instance is running, retrieve the initial admin password:
 ```sh
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+```
 Paste the password into the Jenkins UI at:
 https://jenkins.your-domain
 2. **Install Suggested Plugins**
@@ -108,6 +109,7 @@ Set up an admin username and password.
 CertBot certificates expire every 90 days. Set up auto-renewal using:
 ```sh
 sudo certbot renew --dry-run
+```
 
 ---
 
@@ -116,19 +118,16 @@ sudo certbot renew --dry-run
 - Check **Nginx logs**:
 ```sh
 sudo journalctl -u nginx --no-pager | tail -20
+```
 - Verify firewall/security group rules:
  - Ensure ports 80, 443, and 22 are correctly open.
 - Confirm Jenkins is running:
 ```sh
 systemctl status jenkins
+```
 
 ### SSL Certificate Issues?
 Check **CertBot logs**:
 ```sh
 sudo journalctl -u certbot --no-pager | tail -20
-
----
-
-
-
-
+```
