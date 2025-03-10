@@ -43,11 +43,7 @@ This Terraform project automates the deployment of a secure and scalable Jenkins
 
 ## File Structure
 
-
----
-
-## File Structure
-
+```sh
 SESSION-2-TASK/
 │── .terraform/                # Terraform internal files (auto-generated)
 │── .terraform.lock.hcl        # Terraform dependency lock file
@@ -66,6 +62,7 @@ SESSION-2-TASK/
 │── variables.tf               # Variable definitions
 │── versions.tf                # Terraform required versions
 │── vpc.tf                     # VPC and subnet configurations
+```
 
 
 ---
