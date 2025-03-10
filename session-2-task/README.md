@@ -45,8 +45,6 @@ This Terraform project automates the deployment of a secure and scalable Jenkins
 
 ```sh
 SESSION-2-TASK/
-│── .terraform/                # Terraform internal files (auto-generated)
-│── .terraform.lock.hcl        # Terraform dependency lock file
 │── backend.tf                 # Backend configuration (e.g., S3, DynamoDB)
 │── data.tf                    # Data sources (e.g., existing AWS resources)
 │── main.tf                    # Main Terraform configuration
@@ -55,9 +53,6 @@ SESSION-2-TASK/
 │── README.md                  # Project documentation (this file)
 │── route53.tf                 # Route 53 A record definitions
 │── sg.tf                      # Security group configurations
-│── terraform.tfstate          # Terraform state file (auto-generated)
-│── terraform.tfstate.backup   # Backup of Terraform state
-│── terraform.tfvars           # Terraform variable values
 │── userdata.sh                # User data script (Jenkins, Nginx, CertBot)
 │── variables.tf               # Variable definitions
 │── versions.tf                # Terraform required versions
